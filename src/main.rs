@@ -34,12 +34,13 @@ enum Command {
     },
 }
 
-fn main() -> ExitCode {
+#[tokio::main]
+async fn main() -> ExitCode {
     let cli = Cli::parse();
 
     let code = match &cli.command {
-        Command::Weather { city, api_key } => get_weather(city, api_key),
-        Command::CryptoCurrency { api_key } => get_top_currencies(api_key),
+        Command::Weather { city, api_key } => get_weather(city, api_key).await,
+        Command::CryptoCurrency { api_key } => get_top_currencies(api_key).await,
     };
 
     ExitCode::from(code)

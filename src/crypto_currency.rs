@@ -30,10 +30,10 @@ struct Usd {
     volume_24h: f64,
 }
 
-pub fn get_top_currencies(api_key: &str) -> u8 {
+pub async fn get_top_currencies(api_key: &str) -> u8 {
     println!("{}", "Fetching crypto currencies...".green());
 
-    let weather_data = match fetch_cryptocurrency_data(api_key) {
+    let weather_data = match fetch_cryptocurrency_data(api_key).await {
         Ok(data) => data,
         Err(e) => {
             // early return on failure
@@ -48,15 +48,18 @@ pub fn get_top_currencies(api_key: &str) -> u8 {
     0
 }
 
-fn fetch_cryptocurrency_data(api_key: &str) -> Result<Cryptocurrency, reqwest::Error> {
-    let client = reqwest::blocking::Client::new();
+async fn fetch_cryptocurrency_data(api_key: &str) -> Result<Cryptocurrency, reqwest::Error> {
+    let client = reqwest::Client::new();
+
     client
         .get("https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest")
         .query(&[("limit", 10)])
         .query(&[("CMC_PRO_API_KEY", api_key)])
-        .send()?
+        .send()
+        .await?
         .error_for_status()?
         .json()
+        .await
 }
 
 fn print_cryptocurrency_data(cryptocurrency_data: Cryptocurrency) {
