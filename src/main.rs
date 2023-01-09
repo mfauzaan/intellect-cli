@@ -1,4 +1,5 @@
 use clap::{Parser, Subcommand};
+use std::process::ExitCode;
 
 mod crypto_currency;
 mod weather;
@@ -33,11 +34,13 @@ enum Command {
     },
 }
 
-fn main() {
+fn main() -> ExitCode {
     let cli = Cli::parse();
 
-    match &cli.command {
+    let code = match &cli.command {
         Command::Weather { city, api_key } => get_weather(city, api_key),
         Command::CryptoCurrency { api_key } => get_top_currencies(api_key),
     };
+
+    ExitCode::from(code)
 }
