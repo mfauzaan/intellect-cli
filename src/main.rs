@@ -3,6 +3,9 @@ use clap::{Parser, Subcommand};
 mod crypto_currency;
 mod weather;
 
+use crypto_currency::get_top_currencies;
+use weather::get_weather;
+
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
 struct Cli {
@@ -35,10 +38,10 @@ fn main() {
 
     match &cli.command {
         Some(Command::Weather { city, api_key }) => {
-            let _weather = weather::get_weather(city, api_key);
+            let _weather = get_weather(city, api_key);
         }
         Some(Command::CryptoCurrency { api_key }) => {
-            let _crypto_currency = crypto_currency::get_top_currencies(api_key);
+            let _crypto_currency = get_top_currencies(api_key);
         }
         None => {}
     }
