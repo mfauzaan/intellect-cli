@@ -22,7 +22,7 @@ pub fn get_weather(city: &str, api_key: &str) -> u8 {
         Ok(data) => data,
         Err(e) => {
             // early return on failure
-            println!("Failed to fetch weather data: {}", e);
+            println!("{} {}", "Failed to fetch weather data: ".red(), e);
             return 1;
         }
     };
