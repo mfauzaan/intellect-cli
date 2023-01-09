@@ -10,8 +10,6 @@ description = "A CLI for the Intellect API"
 [dependencies]
 clap = { version = "4.0.32", features = ["derive", "cargo"] }
 colored = "2.0.0"
-num-format = "0.4.4"
 prettytable = "0.10.0"
 reqwest = { version = "0.11.13", features = ["json", "rustls", "blocking"] }
-rusty-money = "0.4.1"
 serde = { version = "1.0.152", features = ["derive"] }
