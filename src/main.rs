@@ -7,11 +7,11 @@ mod weather;
 #[command(author, version, about, long_about = None)]
 struct Cli {
     #[command(subcommand)]
-    command: Option<Commands>,
+    command: Option<Command>,
 }
 
 #[derive(Subcommand)]
-enum Commands {
+enum Command {
     /// Whats the weather like today?
     Weather {
         /// List of the current city
@@ -34,10 +34,10 @@ fn main() {
     let cli = Cli::parse();
 
     match &cli.command {
-        Some(Commands::Weather { city, api_key }) => {
+        Some(Command::Weather { city, api_key }) => {
             let _weather = weather::get_weather(city, api_key);
         }
-        Some(Commands::CryptoCurrency { api_key }) => {
+        Some(Command::CryptoCurrency { api_key }) => {
             let _crypto_currency = crypto_currency::get_top_currencies(api_key);
         }
         None => {}
