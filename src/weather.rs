@@ -15,10 +15,10 @@ struct Main {
     humidity: f64,
 }
 
-pub fn get_weather(city: &str, api_key: &str) -> u8 {
+pub async fn get_weather(city: &str, api_key: &str) -> u8 {
     println!("{}", "Fetching weather from open weather...".green());
 
-    let weather_data = match fetch_weather_data(city, api_key) {
+    let weather_data = match fetch_weather_data(city, api_key).await {
         Ok(data) => data,
         Err(e) => {
             // early return on failure
@@ -33,15 +33,18 @@ pub fn get_weather(city: &str, api_key: &str) -> u8 {
     0
 }
 
-fn fetch_weather_data(city: &str, api_key: &str) -> Result<Weather, reqwest::Error> {
-    let client = reqwest::blocking::Client::new();
+async fn fetch_weather_data(city: &str, api_key: &str) -> Result<Weather, reqwest::Error> {
+    let client = reqwest::Client::new();
+
     client
         .get("https://api.openweathermap.org/data/2.5/weather")
         .query(&[("q", city)])
         .query(&[("appid", api_key)])
-        .send()?
+        .send()
+        .await?
         .error_for_status()?
         .json()
+        .await
 }
 
 fn print_weather_data(weather_data: &Weather) {
