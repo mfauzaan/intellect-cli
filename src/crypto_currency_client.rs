@@ -19,11 +19,11 @@ struct Data {
 #[derive(Deserialize)]
 struct Quote {
     #[serde(rename = "USD")]
-    usd: USD,
+    usd: Usd,
 }
 
 #[derive(Deserialize)]
-struct USD {
+struct Usd {
     price: f64,
     percent_change_24h: f64,
     percent_change_7d: f64,
