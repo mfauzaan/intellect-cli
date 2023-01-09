@@ -32,7 +32,7 @@ struct Usd {
 }
 
 pub fn get_top_currencies(api_key: &String) -> Result<(), Box<dyn std::error::Error>> {
-    println!("Fetching crypto currencies...");
+    println!("{}", "Fetching crypto currencies...".green());
 
     let url = format!(
         "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?limit=10&sort=market_cap&CMC_PRO_API_KEY={}",

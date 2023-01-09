@@ -10,7 +10,7 @@ use weather::get_weather;
 #[command(author, version, about, long_about = None)]
 struct Cli {
     #[command(subcommand)]
-    command: Option<Command>,
+    command: Command,
 }
 
 #[derive(Subcommand)]
@@ -37,12 +37,7 @@ fn main() {
     let cli = Cli::parse();
 
     match &cli.command {
-        Some(Command::Weather { city, api_key }) => {
-            let _weather = get_weather(city, api_key);
-        }
-        Some(Command::CryptoCurrency { api_key }) => {
-            let _crypto_currency = get_top_currencies(api_key);
-        }
-        None => {}
-    }
+        Command::Weather { city, api_key } => get_weather(city, api_key),
+        Command::CryptoCurrency { api_key } => get_top_currencies(api_key),
+    };
 }
