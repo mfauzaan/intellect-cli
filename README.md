@@ -9,12 +9,8 @@ Once you have it installed, run `help` to view the available commands:
 cargo run -- help
 ```
 
-The intellect-cli has main two commands
-  1. weather
-  2. crypto-currency
-
-To view the options needs to pass each command use the help option with the command name:
-
+The intellect-cli has two main commands: `weather` and `crypto-currency`. 
+To view the options for each command, you can use the help command followed by the name of the command, like this:
 ```
 cargo run -- help weather
 ```
