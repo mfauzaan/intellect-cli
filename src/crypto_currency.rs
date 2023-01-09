@@ -37,7 +37,7 @@ pub fn get_top_currencies(api_key: &str) -> u8 {
         Ok(data) => data,
         Err(e) => {
             // early return on failure
-            println!("Failed to fetch weather data: {}", e);
+            println!("{} {}", "Failed to fetch crypto currencies data".red(), e);
             return 1;
         }
     };
