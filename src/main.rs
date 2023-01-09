@@ -1,7 +1,7 @@
 use clap::{Parser, Subcommand};
 
-mod crypto_currency_client;
-mod weather_client;
+mod crypto_currency;
+mod weather;
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
@@ -35,10 +35,10 @@ fn main() {
 
     match &cli.command {
         Some(Commands::Weather { city, api_key }) => {
-            let _weather = weather_client::get_weather(city, api_key);
+            let _weather = weather::get_weather(city, api_key);
         }
         Some(Commands::CryptoCurrency { api_key }) => {
-            let _crypto_currency = crypto_currency_client::get_top_currencies(api_key);
+            let _crypto_currency = crypto_currency::get_top_currencies(api_key);
         }
         None => {}
     }
